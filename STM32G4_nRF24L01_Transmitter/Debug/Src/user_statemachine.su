@@ -1,0 +1,10 @@
+user_statemachine.c:54:6:st_init	8	static
+user_statemachine.c:78:6:st_ilde	4	static
+user_statemachine.c:82:6:st_arm	8	static
+user_statemachine.c:93:6:st_poll	16	static
+user_statemachine.c:109:6:st_update_heartbeat	8	static
+user_statemachine.c:118:6:st_check_rx	8	static
+user_statemachine.c:127:6:st_disarm	8	static
+user_statemachine.c:137:6:state_machine_init	16	static
+user_statemachine.c:142:6:state_machine_run_iteration	24	static
+user_statemachine.c:163:14:state_machine_get_state_name	16	static

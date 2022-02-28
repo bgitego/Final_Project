@@ -1,0 +1,2 @@
+user_main.c:12:6:user_main	16	static
+user_main.c:110:6:HAL_GPIO_EXTI_Callback	16	static

@@ -1,0 +1,2 @@
+user_algorithm.c:9:6:add_to_fifo_size_8	16	static
+user_algorithm.c:21:10:get_average_size_8	16	static

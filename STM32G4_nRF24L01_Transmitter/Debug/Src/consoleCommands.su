@@ -1,0 +1,10 @@
+consoleCommands.c:46:25:ConsoleCommandComment	16	static
+consoleCommands.c:54:25:ConsoleCommandHelp	32	static
+consoleCommands.c:76:25:ConsoleCommandVer	24	static
+consoleCommands.c:85:25:DebugEnable	24	static
+consoleCommands.c:94:25:DebugDisable	24	static
+consoleCommands.c:102:25:DebugEnableVl53l0x	24	static
+consoleCommands.c:111:25:DebugDisableVl53l0x	24	static
+consoleCommands.c:119:25:DebugEnableSTMC	24	static
+consoleCommands.c:128:25:DebugDisableSTMC	24	static
+consoleCommands.c:136:31:ConsoleCommandsGetTable	4	static
