@@ -24,3 +24,21 @@ void Delay_US(uint16_t microseconds )
 	HAL_TIM_Base_Stop(&htim6);
 }
 
+// Based on example form Making Embedded Systems book Chapter 5 pg.140.
+t_time time_passed(t_time since )
+{
+	t_time now = HAL_GetTick();
+
+	if (now >= since)
+	{
+		return (now - since);
+	}
+	else
+	{
+		return (now + (1 + TIME_MAX - since));
+	}
+}
+t_time time_now()
+{
+	return (t_time)HAL_GetTick();
+}
