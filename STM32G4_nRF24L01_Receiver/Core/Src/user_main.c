@@ -10,7 +10,7 @@ extern UART_HandleTypeDef huart2;
 
 #define ARM_COMMAND 32
 #define DISARM_COMMAND 64
-#define HEARTBEAT_FAILLED_TIMEOUT_MS 10000
+#define HEARTBEAT_FAILLED_TIMEOUT_MS 2000
 
 
 void user_main(void)
