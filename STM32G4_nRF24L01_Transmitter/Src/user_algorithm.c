@@ -6,6 +6,7 @@
  */
 #include "user_algorithm.h"
 
+
 void add_to_fifo_size_8(uint16_t * buffer, uint16_t new_sample)
 {
 	buffer[7] = buffer[6];

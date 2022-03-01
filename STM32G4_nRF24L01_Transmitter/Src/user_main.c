@@ -21,7 +21,7 @@ void user_main()
 
 	while(1)
 	{
-		Delay_MS(25);
+		Delay_MS(250);
 		//Initializing the state machine.
 
 		if( state_machine.current_state == ST_IDLE )

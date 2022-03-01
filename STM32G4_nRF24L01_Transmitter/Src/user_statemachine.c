@@ -8,6 +8,7 @@
 
 
 #include "user_statemachine.h"
+#include "stdlib.h"
 
 static state_function_row_t state_functionA[] = {
 //Name	//FUNC
@@ -86,7 +87,7 @@ void st_arm(void)
 	armed_status = 1;
 	g_arm_system_flag = 0;
 	HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
-	Delay_MS(5000);
+	Delay_MS(1000);
 	HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_RESET);
 }
 
@@ -97,7 +98,11 @@ void st_poll(void)
 	add_to_fifo_size_8(fifo_buffer,RangingMeasurementData.RangeMilliMeter);
 	if(fifo_buffer_len <= 8){fifo_buffer_len +=1;}
 	average = get_average_size_8(fifo_buffer);
-	percent_diff = (((average - fifo_buffer[0])/(float)average) * 100);
+
+	if(fifo_buffer_len >= 8)
+	{
+		percent_diff = ((abs(fifo_buffer[0] - average)/(float)average) * 100);
+	}
 
 	if(g_enable_debugging_vl53l0x){printf("Sts(0=Ok): %d Dst mm: %d, avg: %d,deviation (%%): %d\n",(int) RangingMeasurementData.RangeStatus,(int) RangingMeasurementData.RangeMilliMeter,average,(int)percent_diff);}
 
