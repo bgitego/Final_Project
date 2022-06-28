@@ -10,23 +10,28 @@ extern UART_HandleTypeDef huart2;
 
 #define ARM_COMMAND 32
 #define DISARM_COMMAND 64
-#define HEARTBEAT_FAILLED_TIMEOUT_MS 2000
+#define HEARTBEAT_FAILLED_TIMEOUT_MS 500
 
 
 void user_main(void)
 {
-	uint8_t data = 128; //register to hold letter sent and received
-	nrf24l01_initialize_debug(true, 1, false); //initialize the 24L01 to the debug configuration as RX, 1 data byte, and auto-ack disabled
+
+	uint8_t data = 0; //register to hold letter sent and received
+	nrf24l01_initialize_debug(true, 1, true); //initialize the 24L01 to the debug configuration as RX, 1 data byte, and auto-ack enabled
 	uint8_t armed_status = 0;
+	uint8_t counter = 0;
 	//uint8_t heartbeat_stopped,heartbeat_stop_count;
 	uint8_t previous_data;
 	t_time last_good_heartbeat_time,heartbeat_elapsed_time;
+
+	extern IWDG_HandleTypeDef hiwdg;
 
 	HAL_GPIO_WritePin(LD2_GPIO_Port,LD2_Pin,GPIO_PIN_RESET);
 
 	while(1)
 	{
 
+		HAL_IWDG_Refresh(&hiwdg);
 		//Do nothing if no data has been received.
 		if(!(nrf24l01_irq_pin_active() && nrf24l01_irq_rx_dr_active()))
 		{
@@ -34,15 +39,22 @@ void user_main(void)
 		}
 		else
 		{
+
 			HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
 			nrf24l01_read_rx_payload(&data, 1); //read the packet into data
 			nrf24l01_irq_clear_all(); //clear all interrupts in the 24L01
 			printf("Rx: %d\n",data);
 
-			/*if(data == 128)
+			if(data == 128)
 			{
-				user_nrf24l01_response_to_request_data(22);
-			}*/
+				data = user_nrf24l01_response_to_request_data(counter);
+				if(data == 1)
+				{
+					printf("Response Succeeded\n");
+				}
+
+				counter++;
+			}
 
 			if(data == ARM_COMMAND)
 			{
