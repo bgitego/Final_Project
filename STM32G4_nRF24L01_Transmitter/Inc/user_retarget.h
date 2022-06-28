@@ -9,5 +9,7 @@
 #define INC_USER_RETARGET_H_
 
 #include "stdio.h"
+#include "usbd_cdc_if.h"
+
 
 #endif /* INC_USER_RETARGET_H_ */

@@ -16,7 +16,7 @@ typedef __uint32_t t_time ;
 
 #define Delay_MS(milliseconds) HAL_Delay(milliseconds)
 
-void Delay_US(uint16_t microseconds );
+void Delay_US(uint32_t microseconds );
 
 t_time time_passed(t_time );
 t_time time_now();
