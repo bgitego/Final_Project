@@ -14,8 +14,10 @@
 #include "user_retarget.h"
 #include "user_nrf24l01.h"
 
-uint8_t bg_buffer[256];
-uint16_t bg_length;
+#include "tim.h"
+
+extern uint8_t bg_buffer[256];
+extern uint16_t bg_length;
 
 void user_main(void);
 
