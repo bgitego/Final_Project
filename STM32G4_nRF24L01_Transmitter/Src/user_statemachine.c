@@ -10,6 +10,7 @@
 #include "user_statemachine.h"
 #include "stdlib.h"
 
+
 static state_function_row_t state_functionA[] = {
 //Name	//FUNC
 {"ST_INIT",	&st_init},
@@ -40,16 +41,21 @@ static state_transition_matrix_row_t state_transition_matrix[] = {
 };
 
 
-VL53L0X_Dev_t VL53L0XDev;
-VL53L0X_Error status;
-VL53L0X_RangingMeasurementData_t RangingMeasurementData;
+extern VL53L0X_Dev_t VL53L0XDev;
+extern VL53L0X_Error status;
+extern VL53L0X_RangingMeasurementData_t RangingMeasurementData;
 
-uint8_t data = 0; //register to hold letter sent and received
-uint8_t  armed_status = 0;
-uint8_t disarmed_status = 0;
-uint16_t fifo_buffer[8] = {0,0,0,0,0,0,0,0};
-uint8_t fifo_buffer_len = 0;
+extern uint8_t data; //register to hold letter sent and received
+extern uint8_t  armed_status;
+extern uint8_t disarmed_status;
+extern uint16_t fifo_buffer[8];
+extern uint8_t fifo_buffer_len;
 uint16_t average, percent_diff;
+
+extern uint8_t g_enable_debugging_vl53l0x;
+extern uint8_t g_enable_debugging_STMC;
+extern uint8_t g_arm_system_flag;
+extern uint8_t usb_cdc_received_buffer_len;
 
 //State function definitions
 void st_init(void)
@@ -67,11 +73,10 @@ void st_init(void)
 
 	/*______________________________________________nrf24l01________________________________________*/
 
-    nrf24l01_initialize_debug(false, 1, false); //initialize the 24L01 to the debug configuration as TX, 1 data byte, and auto-ack disabled
+    nrf24l01_initialize_debug(false, 1, true); //initialize the 24L01 to the debug configuration as TX, 1 data byte, and auto-ack enabled
 	/*______________________________________________________________________________________________*/
 
 	ConsoleInit(); //Command console
-
 
 	HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_RESET);
 	user_nrf24l01_send_data(DISARM_COMMAND);
