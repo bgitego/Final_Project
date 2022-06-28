@@ -6,16 +6,19 @@
  */
 
 #include "user_retarget.h"
-#include "usbd_cdc_if.h"
+
 
 extern uint8_t g_enable_debugging;
-extern uint8_t usb_cdc_transmit_buffer[];
+extern uint8_t g_enable_debugging_vl53l0x;
+extern uint8_t g_enable_debugging_STMC;
 extern uint8_t usb_cdc_transmit_buffer_len;
+extern uint8_t usb_cdc_transmit_buffer[];    //Used to enable writing to USB serial port
+
 
 int _write(int file, char *ptr, int len)
 {
 
-	if(g_enable_debugging == 1)
+	if(g_enable_debugging == 0 )
 	{
 		usb_cdc_transmit_buffer_len = len;
 		memcpy(usb_cdc_transmit_buffer,ptr,usb_cdc_transmit_buffer_len);
