@@ -8,20 +8,21 @@
 #include "main.h"
 #include "tim.h"
 
-void Delay_US(uint16_t microseconds )
+void Delay_US(uint32_t microseconds )
 {
 	// Start timer
 	HAL_TIM_Base_Start(&htim6);
 
-	volatile uint16_t start_microseconds = __HAL_TIM_GET_COUNTER(&htim6);
+	volatile uint32_t start_microseconds = __HAL_TIM_GET_COUNTER(&htim6);
 
-	while ((__HAL_TIM_GET_COUNTER(&htim6) - start_microseconds) < microseconds )
+	while (((__HAL_TIM_GET_COUNTER(&htim6) - start_microseconds)) < microseconds )
 	{
 		;
 	}
 
 	// Stop timer
 	HAL_TIM_Base_Stop(&htim6);
+	__HAL_TIM_SET_COUNTER(&htim6,0);
 }
 
 // Based on example form Making Embedded Systems book Chapter 5 pg.140.
