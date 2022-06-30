@@ -1,3 +1,0 @@
-user_delays.c:11:6:Delay_US	24	static
-user_delays.c:28:8:time_passed	24	static
-user_delays.c:41:8:time_now	8	static
